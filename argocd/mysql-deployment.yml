@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:   
+  name: mysql-deployment
+  namespace: student-project 
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      db: mysql
+  template:
+    metadata:
+      labels: 
+        db: mysql  
+    spec: 
+      containers: 
+      - name: mysql-instance 
+        image: raedsebti/mysql-instance:latest 
+        volumeMounts:
+        - name:         mysql-volume # name of volume should match claimName volume
+          mountPath:    /var/lib/mysql  # mount inside of contianer
+        envFrom:
+        - configMapRef:
+            name: mysql-configmap
+        - secretRef:
+            name: mysql-secret
+      volumes:
+      - name: mysql-volume
+        persistentVolumeClaim:
+          claimName: mysql-nfs-pvc # same name of pvc that was created
+...
