@@ -6,3 +6,5 @@
 curl -X POST 172.17.0.3:4000/get-students
 #Add new studen 
 curl --header "Content-Type: application/json" -d '{"rollNo": 1130580, "name": "Raed"}' -X POST localhost:4000/add-student
+
+####for i in {1..100}; do curl --header "Content-Type: application/json" -d '{"rollNo": "1138923'$i'", "name": "user'$i'"}' -X POST 192.168.130.174:4000/add-student; done
